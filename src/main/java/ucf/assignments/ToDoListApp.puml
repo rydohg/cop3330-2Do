@@ -1,0 +1,73 @@
+@startuml
+class ToDoListApp {
+    start()
+}
+
+class DataOps {
+    ArrayList<ToDoList> toDoLists
+    String currentPath
+    getInstance()
+    ArrayList<ToDoList> readDataFile(String path)
+    writeDataToFile(String path)
+}
+
+class ToDoController {
+    newList()
+    loadLists()
+    saveLists()
+    newListOnClick()
+    loadListsOnClick()
+    saveListsOnClick()
+    newListOnClick()
+    listSelectorOnClick()
+}
+
+class ListSelectorListCell {
+    updateItem(ToDoList list, boolean empty)
+}
+
+class ToDoListListCell {
+    updateItem(ListItem item, boolean empty)
+}
+
+class ToDoListListCellController {
+    markComplete()
+    editDetails()
+    deleteItem()
+    markCompleteOnClick()
+    editDetailsOnClick()
+    deleteItemOnClick()
+}
+
+class SelectorListCellController {
+    editDetails()
+    deleteList()
+    editDetailsOnClick()
+    deleteListOnClick()
+}
+
+class ToDoLists {
+    ArrayList<ToDoList> lists
+    addList(ToDoList list)
+}
+
+class ToDoList {
+    String title
+    ArrayList<ListItem> items
+    addItem(ListItem item)
+}
+
+class ListItem {
+    String description
+    String date
+    boolean complete
+}
+
+ToDoLists <-- ToDoList
+ToDoList <-- ListItem
+ToDoController <-- ListSelectorListCell
+ToDoController <-- ToDoListListCell
+ToDoListListCell <-- ToDoListListCellController
+ListSelectorListCell <-- SelectorListCellController
+ToDoListApp <-- ToDoController
+@enduml
