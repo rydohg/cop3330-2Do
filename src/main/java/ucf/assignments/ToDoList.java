@@ -11,7 +11,13 @@ public class ToDoList {
         this.items = items;
     }
 
+    public ToDoList(){
+        this.title = "";
+        this.items = new ArrayList<>();
+    }
+
     public void addItem(ListItem item){
         // Add item to array list
+        items.add(item);
     }
 }

@@ -1,14 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller=""
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<GridPane fx:id="gridPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <HBox fx:id="hbox" prefHeight="100.0" prefWidth="600.0">
+         <TextArea fx:id="description" editable="false" prefHeight="100.0" prefWidth="436.0" text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis,." wrapText="true" />
+         <VBox prefHeight="100.0" prefWidth="165.0">
+            <children>
+               <Label fx:id="date" text="2021-06-20">
+                  <font>
+                     <Font name="Droid Sans Fallback" size="18.0" />
+                  </font>
+                  <VBox.margin>
+                     <Insets left="25.0" />
+                  </VBox.margin>
+               </Label>
+               <CheckBox fx:id="complete" mnemonicParsing="false" onMouseClicked="#markComplete" text="Complete">
+                  <VBox.margin>
+                     <Insets left="25.0" />
+                  </VBox.margin>
+               </CheckBox>
+               <Button fx:id="delete" mnemonicParsing="false" onMouseClicked="#deleteItemOnClick" text="Delete Item">
+                  <VBox.margin>
+                     <Insets left="25.0" top="3.0" />
+                  </VBox.margin>
+               </Button>
+               <Button fx:id="edit" mnemonicParsing="false" onMouseClicked="#editDetailsOnClick" text="Edit Details">
+                  <VBox.margin>
+                     <Insets left="25.0" top="3.0" />
+                  </VBox.margin>
+               </Button>
+            </children>
+         </VBox>
+      </HBox>
+   </children>
+</GridPane>

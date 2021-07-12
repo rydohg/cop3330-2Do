@@ -1,6 +1,31 @@
 package ucf.assignments;
 
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+
+import java.awt.*;
+import java.io.IOException;
+
 public class ToDoListListCellController {
+    @FXML
+    private TextArea description;
+    @FXML
+    private Label date;
+    @FXML
+    private GridPane gridPane;
+
+    public ToDoListListCellController(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/to_do_list_item.fxml"));
+//        loader.setController(this);
+        try {
+            gridPane = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void markComplete(){
         // Set boolean to true in this ListItem
     }

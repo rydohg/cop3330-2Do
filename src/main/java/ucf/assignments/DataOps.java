@@ -1,15 +1,20 @@
 package ucf.assignments;
 
+import com.google.gson.Gson;
+
+import java.io.*;
 import java.util.ArrayList;
 
 public class DataOps {
     private static DataOps instance = null;
-    private String currentPath = null;
-    private ArrayList<ToDoList> toDoLists = null;
+    private ToDoList toDoList = null;
 
     private DataOps() {
         // Initialize needed variables
-        toDoLists = new ArrayList<>();
+        toDoList = new ToDoList();
+/*        toDoList.addItem(new ListItem("idk", "2021-07-09"));
+        toDoList.addItem(new ListItem("idek", "2021-07-09"));
+        toDoList.addItem(new ListItem("123", "2021-07-09"));*/
     }
 
     public static DataOps getInstance(){
@@ -20,17 +25,44 @@ public class DataOps {
         return instance;
     }
 
-    public ArrayList<ToDoList> readDataFile(String path){
-        // if path == currentPath then return the current array list
-        // otherwise use Gson to read a ToDoList array into the toDoLists ArrayList
-        // set currentPath to path
-        // I'm using a singleton to modify the data between saves instead of constantly saving/loading
-        // by doing this i can conveniently skip reading from disk a lot when updating list views
-        return toDoLists;
+    public void readDataFile(File file){
+        if (file != null && file.exists()){
+            try {
+                Gson gson = new Gson();
+                toDoList = gson.fromJson(new FileReader(file), ToDoList.class);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    public void writeDataToFile(String path){
+    public void writeDataToFile(File file){
         // Take the toDoLists array list which can be modified by the UI between file saves and write it to a JSON
         // file using Gson
+        Gson gson = new Gson();
+        String json = gson.toJson(toDoList);
+        if (file != null){
+            FileWriter writer;
+            try {
+                file.createNewFile();
+                writer = new FileWriter(file);
+                writer.write(json);
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void addItem(ListItem item) {
+        toDoList.addItem(item);
+    }
+
+    public void nameToDoList(String name){
+        toDoList.title = name;
+    }
+
+    public ArrayList<ListItem> getItems() {
+        return toDoList.items;
     }
 }

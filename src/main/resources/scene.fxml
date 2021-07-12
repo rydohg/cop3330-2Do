@@ -2,62 +2,158 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<GridPane
-        xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="ucf.assignments.ToDoController">
-    <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="394.0" minHeight="10.0" prefHeight="387.0" vgrow="SOMETIMES"/>
-    </rowConstraints>
-    <children>
-        <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                  prefHeight="400.0" prefWidth="600.0" GridPane.rowIndex="1">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.0" minWidth="10.0" prefWidth="195.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="433.0" minWidth="10.0" prefWidth="405.0"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            </rowConstraints>
-            <children>
-                <ListView prefHeight="200.0" prefWidth="200.0"/>
-                <GridPane GridPane.columnIndex="1">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints maxHeight="194.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES"/>
-                        <RowConstraints maxHeight="371.0" minHeight="10.0" prefHeight="357.0" vgrow="SOMETIMES"/>
-                    </rowConstraints>
-                    <children>
-                        <TextArea editable="false" prefHeight="200.0" prefWidth="200.0"
-                                  text="Click Item to Edit (empty spaces are ListViews that will be populated later)"
-                                  wrapText="true">
-                            <GridPane.margin>
-                                <Insets top="2.0"/>
-                            </GridPane.margin>
-                        </TextArea>
-                        <ListView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1"/>
-                    </children>
-                </GridPane>
-            </children>
-        </GridPane>
-        <ButtonBar buttonOrder="" prefHeight="40.0" prefWidth="200.0" translateX="-290.0" translateY="-3.0">
-            <buttons>
-                <Button mnemonicParsing="false" text="New List"/>
-                <Button mnemonicParsing="false" text="Load Lists"/>
-                <Button mnemonicParsing="false" text="Save List(s)"/>
-            </buttons>
-        </ButtonBar>
-    </children>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.ToDoController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.0" minWidth="10.0" prefWidth="69.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="741.0" minWidth="10.0" prefWidth="734.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <GridPane>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="279.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="348.0" minHeight="10.0" prefHeight="348.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="195.0" minHeight="10.0" prefHeight="190.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <VBox prefHeight="179.0" prefWidth="225.0" style="-fx-background-color: #EEEEEE;" GridPane.rowIndex="1">
+               <children>
+                  <Button mnemonicParsing="false" onMouseClicked="#newListOnClick" text="New List">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Droid Sans Fallback" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onMouseClicked="#loadListOnClick" text="Load List">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Droid Sans Fallback" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onMouseClicked="#saveListOnClick" text="Save List">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Droid Sans Fallback" size="13.0" />
+                     </font>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets left="15.0" top="10.0" />
+               </padding>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #6200EE;">
+               <children>
+                  <Label text="2Do" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="Droid Sans Fallback" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="ToDo List App" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets left="15.0" top="-5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Droid Sans Fallback" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+               <children>
+                  <Label text="Filter Options:">
+                     <font>
+                        <Font name="Droid Sans Fallback" size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <CheckBox mnemonicParsing="false" onMouseClicked="#onlyCompleteOnClick" text="Complete">
+                     <font>
+                        <Font name="Droid Sans Fallback" size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="5.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox layoutX="20.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#onlyIncompleteOnClick" text="Incomplete">
+                     <font>
+                        <Font name="Droid Sans Fallback" size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="5.0" />
+                     </VBox.margin>
+                  </CheckBox>
+               </children>
+            </VBox>
+         </children>
+      </GridPane>
+      <GridPane GridPane.columnIndex="1">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="128.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="546.0" minHeight="10.0" prefHeight="540.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox style="-fx-background-color: #3700E3;">
+               <children>
+                  <Label text="To Do" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Droid Sans Fallback" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button mnemonicParsing="false" onMouseClicked="#newItemOnClick" text="New Item">
+                     <HBox.margin>
+                        <Insets left="480.0" top="15.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Droid Sans Fallback" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="627.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#helpDialog" text="Help">
+                     <font>
+                        <Font name="Droid Sans Fallback" size="13.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <ListView fx:id="toDoListView" prefHeight="0.0" prefWidth="0.0" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+   </children>
 </GridPane>

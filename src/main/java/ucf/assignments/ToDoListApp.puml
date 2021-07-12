@@ -4,26 +4,22 @@ class ToDoListApp {
 }
 
 class DataOps {
-    ArrayList<ToDoList> toDoLists
+    ToDoList toDoList
     String currentPath
     getInstance()
-    ArrayList<ToDoList> readDataFile(String path)
+    ToDoList readDataFile(String path)
     writeDataToFile(String path)
 }
 
 class ToDoController {
     newList()
-    loadLists()
-    saveLists()
+    loadList()
+    saveList()
     newListOnClick()
-    loadListsOnClick()
-    saveListsOnClick()
+    loadListOnClick()
+    saveListOnClick()
     newListOnClick()
     listSelectorOnClick()
-}
-
-class ListSelectorListCell {
-    updateItem(ToDoList list, boolean empty)
 }
 
 class ToDoListListCell {
@@ -39,18 +35,6 @@ class ToDoListListCellController {
     deleteItemOnClick()
 }
 
-class SelectorListCellController {
-    editDetails()
-    deleteList()
-    editDetailsOnClick()
-    deleteListOnClick()
-}
-
-class ToDoLists {
-    ArrayList<ToDoList> lists
-    addList(ToDoList list)
-}
-
 class ToDoList {
     String title
     ArrayList<ListItem> items
@@ -63,11 +47,8 @@ class ListItem {
     boolean complete
 }
 
-ToDoLists <-- ToDoList
 ToDoList <-- ListItem
-ToDoController <-- ListSelectorListCell
 ToDoController <-- ToDoListListCell
 ToDoListListCell <-- ToDoListListCellController
-ListSelectorListCell <-- SelectorListCellController
 ToDoListApp <-- ToDoController
 @enduml
