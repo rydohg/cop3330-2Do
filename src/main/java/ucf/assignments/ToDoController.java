@@ -1,3 +1,7 @@
+/*
+ *  UCF COP3330 Summer 2021 Assignment 4 Solution
+ *  Copyright 2021 Ryan Doherty
+ */
 package ucf.assignments;
 
 import javafx.fxml.FXML;
@@ -14,17 +18,21 @@ import java.util.Optional;
 public class ToDoController {
     @FXML
     private ListView<ListItem> toDoListView;
-    boolean filtered = false;
+    private boolean completeFilter = false;
+    private boolean incompleteFilter = false;
 
     public void initialize(){
+        // Set the list view to use our custom list cells
         toDoListView.setCellFactory(lv -> new ToDoListListCell(toDoListView));
     }
 
     public void refreshListView(){
+        // Overloaded refreshListView for easier code
         refreshListView(false, false);
     }
 
     public void refreshListView(boolean onlyComplete, boolean onlyIncomplete){
+        // Refreshes view to match the data singleton and can filter by complete or not
         DataOps data = DataOps.getInstance();
         toDoListView.getItems().clear();
         for (ListItem item : data.getItems()) {
@@ -54,6 +62,7 @@ public class ToDoController {
     }
 
     private void newItem(String description, String date) {
+        // Add new item to data singleton
         DataOps data = DataOps.getInstance();
         data.addItem(new ListItem(description, date));
     }
@@ -66,9 +75,9 @@ public class ToDoController {
     }
 
     public void newItemOnClick(){
-        // Ask for details for a new item then verify the date is valid and keep asking until we get one
         String description = simpleDialog("New Item", "Please enter the description", "");
         String date = "";
+        // Ask for details for a new item then verify the date is valid and keep asking until we get one
         boolean invalidDate = true;
         while (invalidDate){
             date = simpleDialog("New Item", "Please enter the date in the form YYYY-MM-DD", "2021-07-12");
@@ -106,6 +115,7 @@ public class ToDoController {
     }
 
     public static boolean verifyDate(String date){
+        // Verify that the date is valid and matches our format
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         format.setLenient(false);
         try {
@@ -116,25 +126,29 @@ public class ToDoController {
             return false;
         }
     }
+
     public void onlyCompleteOnClick(){
-        if (!filtered){
+        // Refresh with filter if checked and without if not
+        if (!completeFilter) {
             refreshListView(true, false);
         } else {
             refreshListView();
         }
-        filtered = !filtered;
+        completeFilter = !completeFilter;
     }
 
     public void onlyIncompleteOnClick(){
-        if (!filtered){
+        // Refresh with filter if checked and without if not
+        if (!incompleteFilter) {
             refreshListView(false, true);
         } else {
             refreshListView();
         }
-        filtered = !filtered;
+        incompleteFilter = !incompleteFilter;
     }
 
     public void helpDialog(){
+        // Display help dialog
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Help");
         alert.setHeaderText("Dedicated to \"Rey\"");
@@ -148,6 +162,7 @@ public class ToDoController {
     }
 
     public static String simpleDialog(String title, String prompt, String defaultString){
+        // Display a simple text dialog and give the value input into it
         TextInputDialog dialog = new TextInputDialog(defaultString);
         dialog.setTitle(title);
         dialog.setHeaderText(prompt);

@@ -1,3 +1,7 @@
+/*
+ *  UCF COP3330 Summer 2021 Assignment 4 Solution
+ *  Copyright 2021 Ryan Doherty
+ */
 package ucf.assignments;
 
 import javafx.fxml.FXML;
@@ -9,6 +13,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import static ucf.assignments.ToDoController.simpleDialog;
+import static ucf.assignments.ToDoController.verifyDate;
 
 
 public class ToDoListListCell extends ListCell<ListItem> {
@@ -32,8 +37,10 @@ public class ToDoListListCell extends ListCell<ListItem> {
 
     @Override
     protected void updateItem(ListItem item, boolean empty) {
+        // This method is called everytime the list updates for each item
         super.updateItem(item, empty);
         listItem = item;
+        // Make empty items empty
         if (empty || item == null){
             setText(null);
             setGraphic(null);
@@ -57,6 +64,10 @@ public class ToDoListListCell extends ListCell<ListItem> {
             if (item.complete && !complete.isSelected()){
                 complete.fire();
             }
+            if (!item.complete && complete.isSelected()){
+                complete.fire();
+            }
+            // Put everything we just done on the screen
             setText(null);
             setGraphic(gridPane);
         }
@@ -67,19 +78,21 @@ public class ToDoListListCell extends ListCell<ListItem> {
     }
 
     private void deleteItem() {
+        // Delete item from data singleton
         DataOps data = DataOps.getInstance();
         data.getItems().remove(listItem);
     }
 
     public void editDetails(String description, String date){
+        // Edit this items details
         listItem.setDescription(description);
         listItem.setDate(date);
     }
 
     public void deleteItemOnClick(){
+        // Delete data from the data singleton
         deleteItem();
-        setText(null);
-        setGraphic(null);
+        // Remove it from the list view by refreshing it with the latest data
         DataOps data = DataOps.getInstance();
         toDoList.getItems().clear();
         for (ListItem i : data.getItems()) {
@@ -91,22 +104,21 @@ public class ToDoListListCell extends ListCell<ListItem> {
         String descriptionString = simpleDialog("Edit Details", "Please enter the description", listItem.description);
         String dateString = "";
         boolean invalidDate = true;
+        // Show dialog to ask for new date and keep asking until we get a valid date
         while (invalidDate){
             dateString = simpleDialog("Edit Details", "Please enter the date in the form YYYY-MM-DD", listItem.date);
-            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            format.setLenient(false);
-            try {
-                if (dateString.length() != 10){ throw new Exception(); }
-                format.parse(dateString);
+            if (verifyDate(dateString)){
                 invalidDate = false;
-            } catch (Exception e) {
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Invalid Date");
                 alert.setContentText("Please enter a valid date in YYYY-MM-DD format");
                 alert.showAndWait();
             }
         }
+        // Edit data's version of the item
         editDetails(descriptionString, dateString);
+        // Edit the view's version of the item
         description.setText(descriptionString);
         date.setText(dateString);
     }
