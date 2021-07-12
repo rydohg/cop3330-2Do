@@ -7,30 +7,31 @@ class DataOps {
     ToDoList toDoList
     String currentPath
     getInstance()
-    ToDoList readDataFile(String path)
-    writeDataToFile(String path)
+    ArrayList<ListItem> getItems()
+    ToDoList readDataFile(File file)
+    writeDataToFile(File file)
 }
 
 class ToDoController {
     newList()
-    loadList()
-    saveList()
+    loadList(File file)
+    saveList(File file)
     newListOnClick()
     loadListOnClick()
     saveListOnClick()
     newListOnClick()
-    listSelectorOnClick()
+    onlyCompleteOnClick()
+    onlyIncompleteOnClick()
+    refreshListView(onlyComplete, onlyIncomplete)
+    helpDialog()
+    simpleDialog(String title, String header, String defaultString)
 }
 
 class ToDoListListCell {
     updateItem(ListItem item, boolean empty)
-}
-
-class ToDoListListCellController {
     markComplete()
-    editDetails()
+    editDetails(String description, String date)
     deleteItem()
-    markCompleteOnClick()
     editDetailsOnClick()
     deleteItemOnClick()
 }
@@ -45,10 +46,12 @@ class ListItem {
     String description
     String date
     boolean complete
+    setDescription()
+    setDate()
+    setComplete()
 }
 
 ToDoList <-- ListItem
 ToDoController <-- ToDoListListCell
-ToDoListListCell <-- ToDoListListCellController
 ToDoListApp <-- ToDoController
 @enduml

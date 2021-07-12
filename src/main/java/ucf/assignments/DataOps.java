@@ -12,9 +12,6 @@ public class DataOps {
     private DataOps() {
         // Initialize needed variables
         toDoList = new ToDoList();
-/*        toDoList.addItem(new ListItem("idk", "2021-07-09"));
-        toDoList.addItem(new ListItem("idek", "2021-07-09"));
-        toDoList.addItem(new ListItem("123", "2021-07-09"));*/
     }
 
     public static DataOps getInstance(){
@@ -26,6 +23,7 @@ public class DataOps {
     }
 
     public void readDataFile(File file){
+        // Read objects in JSON from given file into toDoList
         if (file != null && file.exists()){
             try {
                 Gson gson = new Gson();
@@ -56,10 +54,6 @@ public class DataOps {
 
     public void addItem(ListItem item) {
         toDoList.addItem(item);
-    }
-
-    public void nameToDoList(String name){
-        toDoList.title = name;
     }
 
     public ArrayList<ListItem> getItems() {

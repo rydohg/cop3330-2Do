@@ -2,7 +2,6 @@ package ucf.assignments;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.FileChooser;
@@ -66,32 +65,16 @@ public class ToDoController {
         refreshListView();
     }
 
-    public void helpDialog(){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Help");
-        alert.setHeaderText("Dedicated to \"Rey\"");
-        alert.setContentText("New List makes a new list (throws unsaved stuff away) and also acts as Clear List.\nLoad List uh loads a list.\n" +
-                "Guess what Save List does.\n" +
-                "You can edit an item by hitting its ... wait for it ... Edit Details\n" +
-                "Delete Item deletes it. The complete checkbox marks an item as complete or incomplete.\n" +
-                "The Complete/Incomplete checkboxes on the left filter by complete or incomplete.\n" +
-                "Lastly, the help button but it looks like you already found the help button :)");
-        alert.show();
-    }
-
     public void newItemOnClick(){
+        // Ask for details for a new item then verify the date is valid and keep asking until we get one
         String description = simpleDialog("New Item", "Please enter the description", "");
         String date = "";
         boolean invalidDate = true;
         while (invalidDate){
             date = simpleDialog("New Item", "Please enter the date in the form YYYY-MM-DD", "2021-07-12");
-            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            format.setLenient(false);
-            try {
-                if (date.length() != 10){ throw new Exception(); }
-                format.parse(date);
+            if(verifyDate(date)){
                 invalidDate = false;
-            } catch (Exception e) {
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Invalid Date");
                 alert.setContentText("Please enter a valid date in YYYY-MM-DD format");
@@ -122,6 +105,17 @@ public class ToDoController {
         saveList(file);
     }
 
+    public static boolean verifyDate(String date){
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        format.setLenient(false);
+        try {
+            if (date.length() != 10){ return false; }
+            format.parse(date);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
     public void onlyCompleteOnClick(){
         if (!filtered){
             refreshListView(true, false);
@@ -137,7 +131,21 @@ public class ToDoController {
         } else {
             refreshListView();
         }
-        filtered = !filtered;    }
+        filtered = !filtered;
+    }
+
+    public void helpDialog(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Help");
+        alert.setHeaderText("Dedicated to \"Rey\"");
+        alert.setContentText("New List makes a new list (throws unsaved stuff away) and also acts as Clear List.\nLoad List uh loads a list.\n" +
+                "Guess what Save List does.\n" +
+                "You can edit an item by hitting its ... wait for it ... Edit Details\n" +
+                "Delete Item deletes it. The complete checkbox marks an item as complete or incomplete.\n" +
+                "The Complete/Incomplete checkboxes on the left filter by complete or incomplete.\n" +
+                "Lastly, the help button but it looks like you already found the help button :)");
+        alert.show();
+    }
 
     public static String simpleDialog(String title, String prompt, String defaultString){
         TextInputDialog dialog = new TextInputDialog(defaultString);

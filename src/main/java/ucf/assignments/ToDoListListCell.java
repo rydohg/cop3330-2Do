@@ -3,7 +3,6 @@ package ucf.assignments;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 import java.text.DateFormat;
@@ -14,6 +13,7 @@ import static ucf.assignments.ToDoController.simpleDialog;
 
 public class ToDoListListCell extends ListCell<ListItem> {
     private FXMLLoader mLoader;
+    private ListView<ListItem> toDoList;
     private ListItem listItem;
     @FXML
     private TextArea description;
@@ -24,10 +24,9 @@ public class ToDoListListCell extends ListCell<ListItem> {
     @FXML
     private GridPane gridPane;
 
-    private ListView<ListItem> toDoList;
-
     public ToDoListListCell(ListView<ListItem> toDoList){
         super();
+        // Take in the list view to refresh it on delete
         this.toDoList = toDoList;
     }
 
@@ -67,6 +66,16 @@ public class ToDoListListCell extends ListCell<ListItem> {
         listItem.setComplete(!listItem.complete);
     }
 
+    private void deleteItem() {
+        DataOps data = DataOps.getInstance();
+        data.getItems().remove(listItem);
+    }
+
+    public void editDetails(String description, String date){
+        listItem.setDescription(description);
+        listItem.setDate(date);
+    }
+
     public void deleteItemOnClick(){
         deleteItem();
         setText(null);
@@ -76,11 +85,6 @@ public class ToDoListListCell extends ListCell<ListItem> {
         for (ListItem i : data.getItems()) {
             toDoList.getItems().add(i);
         }
-    }
-
-    private void deleteItem() {
-        DataOps data = DataOps.getInstance();
-        data.getItems().remove(listItem);
     }
 
     public void editDetailsOnClick(){
@@ -105,10 +109,5 @@ public class ToDoListListCell extends ListCell<ListItem> {
         editDetails(descriptionString, dateString);
         description.setText(descriptionString);
         date.setText(dateString);
-    }
-
-    public void editDetails(String description, String date){
-        listItem.setDescription(description);
-        listItem.setDate(date);
     }
 }
